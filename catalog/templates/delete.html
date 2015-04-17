@@ -1,0 +1,9 @@
+<html>
+<body onload="document.createElement('form').submit.call(document.getElementById('deleteForm'))">
+<form id="deleteForm" method="POST">
+{% include "csrf.html" %}
+<input type="hidden"name="delete_it" value="yes">
+<input type="hidden" name="submit" id="submit" value="Yes"> 
+</form>
+</body>
+</html>

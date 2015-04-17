@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+<div class="col-xs-4">
+
+
+	<div class="thumbnail">
+	  <img class="center-cropped" src="{{ item.photo }}" alt="{{ item.name }}">
+	</div>
+ </div>
+
+<div class="col-xs-8">
+
+		<h3 style="display: inline">{{ item.name }}</h4>
+		{% if login_already %}
+		<a href="/{{ item.id }}/edit">Edit</a>|<a href="/{{ item.id }}/delete">Delete</a>
+		{% else %}
+		{% endif %}
+
+	<hr>
+	<p>{{ item.discription }}</p>
+</div>
+
+</div>
+
+
+
+</div>
+
+
+{% endblock content %}

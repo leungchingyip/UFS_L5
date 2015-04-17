@@ -1,0 +1,4 @@
+
+MAILTO=''
+* * * */3 * /catalog/auto_update.sh >/dev/null
+# auto update software in this server in every 3 month

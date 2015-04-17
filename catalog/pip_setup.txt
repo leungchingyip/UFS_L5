@@ -1,0 +1,13 @@
+Flask==0.10.1
+Flask-WTF==0.11
+Jinja2==2.7.3
+MarkupSafe==0.23
+SQLAlchemy==0.9.8
+SQLAlchemy-ImageAttach==0.9.0
+WTForms==2.0.2
+Wand==0.4.0
+Werkzeug==0.10.1
+rauth==0.7.1
+dicttoxml==1.6.4
+Flask-Login==0.2.11
+

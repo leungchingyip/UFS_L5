@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h3>Add New Item</h3>
+  <hr>
+
+<form method="post" enctype="multipart/form-data" role="form" >
+ {% include "csrf.html" %}
+  <div class="form-group">
+  	<label {% if error.name %} style="color:red" {% endif %} for="name">Name:</label>
+    <input id="name" type="text" class="form-control" placeholder="Name" name="name">
+  </div>
+
+  <div class="form-group">
+    <label {% if error.discription %} style="color:red" {% endif %} for="discription">Discription:</label>
+    <input id="discription" type="text" class="form-control" placeholder="Discription" name="discription">
+  </div>
+
+  <div class="form-group">
+    <label {% if error.photo %} style="color:red" {% endif %} for="photo">Photo:</label>
+    <input id="photo" type="file" class="form-control" placeholder="Photo_file" name="photo">
+  </div>
+
+  <div class="form-group">
+    <label {% if error.category %} style="color:red" {% endif %} for="category">Category:</label>
+    <select id="category" class="form-control" name="category" >
+    	<option value="" selected >Category</option>
+    	{% for i in c %}
+    	<option value="{{ i.name }}">{{ i.name }}</option>
+    	{% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-xs btn-default">Add</button>
+
+</form>
+</div>
+
+
+{% endblock content %}

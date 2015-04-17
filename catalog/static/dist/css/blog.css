@@ -1,0 +1,39 @@
+body {
+	background-color: white ;
+	font-size: 16px;
+
+
+}
+
+.title {
+	  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	  font-weight: 800;
+	  font-size: 200%;
+	  text-align: center;
+}
+
+.time{
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	color: gray;
+	font-size: 80%;
+	text-align: center;
+}
+
+.content{
+	font-family: 'Nanum Gothic',  Helvetica, Arial, sans-serif;
+	font-size: 100%;
+}
+
+a {
+	color: gray;
+}
+
+a:hover, 
+a:focus {
+	style: underline;
+}
+
+.article{
+
+}
