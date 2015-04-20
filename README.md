@@ -4,29 +4,30 @@
 
 **How to use?**
 
-1. `sudo apt-get update`
+1.Update and install pip:
 
-1. `sudo apt-get install python-pip`
+	`sudo apt-get update`
+		
+	`sudo apt-get install python-pip`
 
-1. install and activate virtualenv:
+1.Install and activate virtualenv:
 
-`sudo pip install virtualenv`
+	`sudo pip install virtualenv`
 
-`source catalog/bin/activate`
+	`source catalog/bin/activate`
 
-1. install and execute mod-wsgi
+1.install and execute mod-wsgi
 
-<code>
-sudo apt-get install libapache2-mod-wsgi python-dev
+	<code>
+	sudo apt-get install libapache2-mod-wsgi python-dev
+	sudo a2enmod wsgi
+	</code>
 
-sudo a2enmod wsgi
-</code>
+1.Change the SSH Port:
 
-1. change the SSH Port:
+	<code> sudo nano /etc/ssh/sshd_config</code>
 
-<code> nano /etc/ssh/sshd_config</code>
-
-chang `port 22` to `port 2200`
+chang 'port 22' to 'port 2200'
 
 1. install postgreSQL:
 
