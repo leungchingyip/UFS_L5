@@ -4,134 +4,131 @@
 
 **How to use?**
 
-1.Update and install pip:
+1. Update and install pip:
 
-	`sudo apt-get update`
+	sudo apt-get update
 		
-	`sudo apt-get install python-pip`
+	sudo apt-get install python-pip
 
-1.Install and activate virtualenv:
+1. Install and activate virtualenv:
 
-	`sudo pip install virtualenv`
+	sudo pip install virtualenv
 
-	`source catalog/bin/activate`
+	source catalog/bin/activate
 
-1.install and execute mod-wsgi
+1. Install and execute mod-wsgi:
 
-	<code>
 	sudo apt-get install libapache2-mod-wsgi python-dev
 	sudo a2enmod wsgi
-	</code>
+	
 
-1.Change the SSH Port:
+1. Change the SSH Port:
 
-	<code> sudo nano /etc/ssh/sshd_config</code>
+	sudo nano /etc/ssh/sshd_config
 
-chang 'port 22' to 'port 2200'
+Then, chang 'port 22' to 'port 2200'
 
-1. install postgreSQL:
+1. Install postgreSQL:
 
-<code> sudo apt-get install postgresql postgresql-contrib </code>
+	sudo apt-get install postgresql postgresql-contrib 
 
-1. create new user and database in postgreSQL, and configurate catalog.py with username, password and database:
+1. Create new user and database in postgreSQL, and configurate catalog.py with username, password and database:
 
-<code> engine = create_engine('postgres://<username>:<password>@localhost/<database>')
+	engine = create_engine('postgres://<username>:<password>@localhost/<database>')
 
-1. 
+1. Set available port with iptables:
 
-<code>
-iptables -A INPUT -p tcp -m tcp --dport 2200 -j ACCEPT
+	iptables -A INPUT -p tcp -m tcp --dport 2200 -j ACCEPT
 
-iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+	iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
 
-iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+	iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 
-iptables -A INPUT -p tcp -m tcp --dport 123 -j ACCEPT
+	iptables -A INPUT -p tcp -m tcp --dport 123 -j ACCEPT
 
-iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+	iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-iptables -P OUTPUT ACCEPT
+	iptables -P OUTPUT ACCEPT
 
-iptables -P INPUT DROP
-</code>
+	iptables -P INPUT DROP
 
-then save the configuration:
 
-<code>
-iptables-svae | sudo tee /etc/sysconfig/iptables
-service iptables restart
-</code> 
+Then save the configuration:
 
-1. protect SSH with fail2ban:
+	iptables-svae | sudo tee /etc/sysconfig/iptables
+	service iptables restart
+ 
 
-`sudo apt-get install fail2ban`
+1. Protect SSH with fail2ban:
 
-Edit the configure file:
+	sudo apt-get install fail2ban
 
-<code>
-sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+Edit the configure file as need:
 
-sudo nano /etc/fail2ban/jail.local
-</code>
+	sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+	sudo nano /etc/fail2ban/jail.local
+
+Restart to activate the change:
+
+	sudo service fail2ban restart
 
 1. Install and configure Apache2:
 
-`sudo apt-get install apache2`
+	sudo apt-get install apache2
 
 Configure Apache2:
 
-`sudo nano /etc/apache2/sites-available/catalog`
+	sudo nano /etc/apache2/sites-available/catalog
 
 Change the configuration as below:
 
-<code>
 	<VirtualHost *:80>
-                ServerName <your server ip or domain name>
+        ServerName <your server ip or domain name>
 
-                WSGIScriptAlias / /<path to catalog>/catalog/catalog.wsgi
-                WSGIDaemonProcess catalog user=<username> threads=5
-                <Directory /catalog/catalog/>
-                        WSGIProcessGroup catalog
-                        WSGIApplicationGroup %{GLOBAL}
-                        WSGIScriptReloading On
-                        Order allow,deny
-                        Allow from all
-                        Require all granted
-
-                </Directory>
-                Alias /static /<path to catalog>/catalog/static
-                <Directory /catalog/catalog/static/>
-                        Order allow,deny
-                        Allow from all
-                </Directory>
+        WSGIScriptAlias / /<path to catalog>/catalog/catalog.wsgi
+        WSGIDaemonProcess catalog user=<username> threads=5
+        <Directory /catalog/catalog/>
+                WSGIProcessGroup catalog
+                WSGIApplicationGroup %{GLOBAL}
+                WSGIScriptReloading On
+                Order allow,deny
                 Allow from all
-                        Require all granted
+                Require all granted
 
-                </Directory>
-                Alias /static /<path to catalog>/catalog/static
-                <Directory /catalog/catalog/static/>
-                        Order allow,deny
-                        Allow from all
-                </Directory>
-                ErrorLog ${APACHE_LOG_DIR}/error.log
-                LogLevel warn
-                CustomLog ${APACHE_LOG_DIR}/access.log combined
+        </Directory>
+        Alias /static /<path to catalog>/catalog/static
+        <Directory /catalog/catalog/static/>
+                Order allow,deny
+                Allow from all
+        </Directory>
+        Allow from all
+                Require all granted
+
+        </Directory>
+        Alias /static /<path to catalog>/catalog/static
+        <Directory /catalog/catalog/static/>
+                Order allow,deny
+                Allow from all
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
 	</VirtualHost>
-</code>
 
-Activate hte host:
 
-`sudo a2ensite catalog`
+Activate the host:
 
-`sudo service apache2 restart'
+	sudo a2ensite catalog
+
+	sudo service apache2 restart'
 
 1. Setup automatic update with cron:
 
-<code>
-cd /PathToCatalog
+	cd /PathToCatalog
 
-crontab crontab.txt
-</code>
+	crontab crontab.txt
+
 
 
 
