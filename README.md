@@ -4,13 +4,13 @@
 
 **How to use?**
 
-1. Update and install pip:
+1. Update and install pip.
 
 	sudo apt-get update
 		
 	sudo apt-get install python-pip
 
-1. Install and activate virtualenv:
+1. Install and activate virtualenv.
 
 	sudo pip install virtualenv
 
