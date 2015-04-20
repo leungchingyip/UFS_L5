@@ -63,4 +63,3 @@ If do not use vagrant, please skip steps 1 and 2.
 
 5. Run the app on localhost: `python catalog.py`
 
-
