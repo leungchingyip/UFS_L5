@@ -1,4 +1,4 @@
-######This is Udacity Full Stack Nano Degree project 5. It is a web app for displaying items, deploy on linux server by Apache2 and wsgi. It bases on Flask and Bootstrap. server
+######This is Udacity Full Stack Nano Degree project 5. It is a web app for displaying items, deploy on linux server with Apache2 and mod-wsgi. It bases on Flask and Bootstrap. 
 
 ---------------
 
