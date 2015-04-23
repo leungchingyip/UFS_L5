@@ -24,7 +24,6 @@ from FacebookSignUp import FacebookSignUp
 from upload_image import upload_image
 
 app = Flask(__name__)
-app.debug = True
 
 # Run Flask_WTF's CRSFProtect
 CsrfProtect(app)
@@ -35,7 +34,7 @@ app.secret_key= "uuuuuuuuuuuuuuu"
 
 # Initialize and connect database by SQLAlchemy
 CURRENT_PATH = os.getcwd()
-engine = create_engine('postgres://catalog:cataword@localhost/catalog')
+engine = create_engine('postgresql://catalog:cataword@localhost/catalog')
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)

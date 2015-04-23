@@ -15,11 +15,6 @@
 		sudo pip install virtualenv
 	
 		source catalog/bin/activate
-
-1. Install and execute mod-wsgi:
-
-		sudo apt-get install libapache2-mod-wsgi python-dev
-		sudo a2enmod wsgi
 	
 1. Change the SSH Port:
 
@@ -30,6 +25,7 @@
 1. Install postgreSQL:
 
 		sudo apt-get install postgresql postgresql-contrib 
+		sudo apt-get build-dep python-psycopg2
 
 1. Create new user and database in postgreSQL, and configurate catalog.py with username, password and database:
 
@@ -44,6 +40,8 @@
 		iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 	
 		iptables -A INPUT -p tcp -m tcp --dport 123 -j ACCEPT
+
+		iptables -A INPUT -P tcp -m tcp --dport 5432 -j ACCEPT
 	
 		iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 	
@@ -54,7 +52,7 @@
 
 	Then save the configuration:
 
-		iptables-svae | sudo tee /etc/sysconfig/iptables
+		iptables-save | sudo tee /etc/sysconfig/iptables
 		service iptables restart
  
 1. Protect SSH with fail2ban:
@@ -77,7 +75,7 @@
 
 	Configure Apache2:
 
-		sudo nano /etc/apache2/sites-available/catalog
+		sudo nano /etc/apache2/sites-available/catalog.conf
 
 	Change the configuration as below:
 
@@ -93,17 +91,8 @@
 	                Order allow,deny
 	                Allow from all
 	                Require all granted
-	
 	        </Directory>
-	        Alias /static /<path to catalog>/catalog/static
-	        <Directory /catalog/catalog/static/>
-	                Order allow,deny
-	                Allow from all
-	        </Directory>
-	        Allow from all
-	                Require all granted
-	
-	        </Directory>
+
 	        Alias /static /<path to catalog>/catalog/static
 	        <Directory /catalog/catalog/static/>
 	                Order allow,deny
@@ -119,7 +108,12 @@
 
 		sudo a2ensite catalog
 	
-		sudo service apache2 restart'
+		sudo service apache2 restart
+
+1. Install and execute mod-wsgi:
+
+		sudo apt-get install libapache2-mod-wsgi python-dev
+		sudo a2enmod wsgi
 
 1. Setup automatic update with cron:
 
